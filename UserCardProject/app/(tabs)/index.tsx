@@ -1,45 +1,31 @@
-import { View, Text, StyleSheet, ScrollView, SafeAreaView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import UserCard from '../../components/UserCard';
 
-export default function Home() {
+export default function Index() {
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <ScrollView contentContainerStyle={styles.container}>
-        <Text style={styles.title}>Time de Membros</Text>
-        <Text style={styles.subtitle}>Gerencie o stats da sua equipe</Text>
+    <View style={styles.container}>
+      <Text style={styles.titulo}>Usuários</Text>
 
-        <View style={styles.list}>
-          <UserCard nome="Bianca" profissao="Dev Frontend" />
-          <UserCard nome="George" profissao="Mobile Developer" />
-          <UserCard nome="Gustavo" profissao="UI/UX Designer" />
-          <UserCard nome="Duda" profissao="Product Manager" />
-        </View>
+      <ScrollView>
+        <UserCard nome="Paulo George" profissao="Programador" />
+        <UserCard nome="Bianca Alves" profissao="Designer" />
+        <UserCard nome="Gustavo Fernando" profissao="Gestor" />
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: '#0F172A', // Fundo escuro moderno
-  },
   container: {
-    padding: 24,
-    alignItems: 'center',
+    flex: 1,
+    backgroundColor: '#0f172a',
+    padding: 20,
   },
-  title: {
-    fontSize: 28,
-    fontWeight: '800',
-    color: '#F8FAFC',
-    marginTop: 20,
-  },
-  subtitle: {
-    fontSize: 16,
-    color: '#64748B',
-    marginBottom: 32,
-  },
-  list: {
-    width: '100%',
+
+  titulo: {
+    fontSize: 26,
+    fontWeight: 'bold',
+    color: '#fff',
+    marginBottom: 20,
   },
 });
