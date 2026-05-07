@@ -1,35 +1,30 @@
-import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { useState } from 'react';
 
-// Definição das interfaces para o TypeScript
-interface UserCardProps {
+type Props = {
   nome: string;
   profissao: string;
-}
+};
 
-export default function UserCard({ nome, profissao }: UserCardProps) {
-  // Estado para controlar se o usuário está online
-  const [isOnline, setIsOnline] = useState(false);
+export default function UserCard({ nome, profissao }: Props) {
+  const [online, setOnline] = useState(false);
 
   return (
     <View style={styles.card}>
-      <View style={styles.infoContainer}>
-        <Text style={styles.name}>{nome}</Text>
-        <Text style={styles.job}>{profissao}</Text>
-        
-        <View style={styles.statusBadge}>
-          <View style={[styles.statusDot, { backgroundColor: isOnline ? '#4ADE80' : '#94A3B8' }]} />
-          <Text style={styles.statusText}>{isOnline ? 'Disponível' : 'Indisponível'}</Text>
-        </View>
+      <View style={styles.info}>
+        <Text style={styles.nome}>{nome}</Text>
+        <Text style={styles.profissao}>{profissao}</Text>
+
+        <Text style={[styles.status, online ? styles.online : styles.offline]}>
+          {online ? '🟢 Online' : '🔴 Offline'}
+        </Text>
       </View>
 
-      <TouchableOpacity 
-        style={[styles.button, isOnline ? styles.buttonActive : styles.buttonInactive]} 
-        onPress={() => setIsOnline(!isOnline)}
+      <TouchableOpacity
+        style={styles.botao}
+        onPress={() => setOnline(!online)}
       >
-        <Text style={styles.buttonText}>
-          {isOnline ? 'Ficar Offline' : 'Ficar Online'}
-        </Text>
+        <Text style={styles.botaoTexto}>Mudar</Text>
       </TouchableOpacity>
     </View>
   );
@@ -37,62 +32,56 @@ export default function UserCard({ nome, profissao }: UserCardProps) {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: '#1E293B',
-    borderRadius: 16,
-    padding: 20,
-    marginBottom: 16,
-    width: '100%',
     flexDirection: 'row',
-    alignItems: 'center',
     justifyContent: 'space-between',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 5,
-    elevation: 8,
+    alignItems: 'center',
+
+    backgroundColor: '#1e1e2f',
+    padding: 16,
+    marginBottom: 12,
+    borderRadius: 12,
+
+    // sombra
+    elevation: 3,
   },
-  infoContainer: {
+
+  info: {
     flex: 1,
   },
-  name: {
-    color: '#F8FAFC',
+
+  nome: {
     fontSize: 18,
     fontWeight: 'bold',
+    color: '#fff',
   },
-  job: {
-    color: '#94A3B8',
+
+  profissao: {
     fontSize: 14,
-    marginBottom: 8,
+    color: '#ccc',
+    marginBottom: 6,
   },
-  statusBadge: {
-    flexDirection: 'row',
-    alignItems: 'center',
+
+  status: {
+    fontSize: 14,
   },
-  statusDot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-    marginRight: 6,
+
+  online: {
+    color: 'lime',
   },
-  statusText: {
-    color: '#CBD5E1',
-    fontSize: 12,
+
+  offline: {
+    color: 'red',
   },
-  button: {
+
+  botao: {
+    backgroundColor: '#4a90e2',
     paddingVertical: 8,
-    paddingHorizontal: 16,
+    paddingHorizontal: 12,
     borderRadius: 8,
-    marginLeft: 10,
   },
-  buttonActive: {
-    backgroundColor: '#EF4444', // Vermelho para "deslogar"
-  },
-  buttonInactive: {
-    backgroundColor: '#3B82F6', // Azul para "logar"
-  },
-  buttonText: {
-    color: '#FFFFFF',
-    fontWeight: '600',
-    fontSize: 13,
+
+  botaoTexto: {
+    color: '#fff',
+    fontWeight: 'bold',
   },
 });
